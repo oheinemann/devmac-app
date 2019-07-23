@@ -59,7 +59,7 @@ def main():
         print("Updating to last changes")
         pb = ProgressBar()
         pb.setup('devmac-app')
-        o.pull(progress=pb)
+        o.pull(progress=pb.update)
 
 
 if __name__ == '__main__':

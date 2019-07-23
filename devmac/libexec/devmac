@@ -17,6 +17,28 @@ def main():
     if repo.is_dirty():
         print("The devmac-app has local changes!")
 
+    o = repo.remotes.origin
+    o.fetch()
+    # Tags
+    tags = []
+    for t in repo.tags:
+        tags.append({"name": t.name, "commit": str(t.commit), "date": t.commit.committed_date,
+                        "committer": t.commit.committer.name, "message": t.commit.message})
+    try:
+        branch_name = repo.active_branch.name
+        # test1
+    except:
+        branch_name = None
+
+    changes = []
+    commits_behind = repo.iter_commits('master..origin/master')
+
+    for c in list(commits_behind):
+        changes.append({"committer": c.committer.name, "message": c.message})
+
+    print({"tags": tags, "headcommit": str(repo.head.commit), "branchname": branch_name,
+                        "master": {"changes": changes}})
+
     
 if __name__ == '__main__':
     main()

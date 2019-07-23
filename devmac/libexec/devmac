@@ -1,7 +1,21 @@
 #!/usr/bin/env python3
 
+import os
+from git import Repo
+
 def main():
-    print(Hello world!")
+    print("Hello world!")
+
+    rootDir = os.path.realpath(os.path.join(
+        os.path.dirname(os.path.realpath(__file__)), "../.."))
+
+    print(os.path.dirname(os.path.realpath(__file__)))
+
+    print(rootDir)
+
+    repo = Repo(rootDir)
+    if repo.is_dirty():
+        print("The devmac-app has local changes!")
 
     
 if __name__ == '__main__':
